@@ -3,7 +3,7 @@
 <head>
 	<title>Ping Pong Game</title>
 </head>
-<body>
+<body style="margin:0px">
 	<canvas id="canvas" width="800" height="400"></canvas>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript">
@@ -11,6 +11,12 @@
 
 		app.onInit = function () {
 			console.log("hello");
+
+            this.width = window.innerWidth - 4;
+			this.height = window.innerHeight - 4;
+			this.canvas.width = this.width;
+			this.canvas.height = this.height;
+
 			this.nodes.push({
 				id: 'leftPlayer',
 				x: app.width / 25,
@@ -24,7 +30,7 @@
 
 			this.nodes.push({
 				id: 'rightPlayer',
-				x: app.width - app.width / 25,
+				x: app.width - (app.width / 25 + app.width / 50),
                 y: app.height / 2 - app.height / 14,
                 width: app.width / 50,
 				height : app.height / 7,
