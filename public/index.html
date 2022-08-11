@@ -38,6 +38,17 @@
 				up: 0,
 				down: 0
 			});
+
+			this.nodes.push({
+				id: 'ball',
+                x: app.width / 2 - app.width / 50,
+                y: app.height / 2 - app.width / 50,
+                width: app.width / 50,
+                height: app.width / 50,
+				color: 'black',
+				ySpeed: 0,
+				xSpeed: 0
+			});
 		};
 
 		app.onUpdate = function (time) {
