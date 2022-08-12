@@ -27,7 +27,8 @@
                 height: app.height / 7,
 				color: 'black',
 				up: 0,
-				down: 0
+				down: 0,
+				score: 0
 			});
 
 			this.nodes.push({
@@ -38,7 +39,8 @@
 				height : app.height / 7,
 				color: 'black',
 				up: 0,
-				down: 0
+				down: 0,
+				score: 0
 			});
 
 			this.nodes.push({
@@ -137,11 +139,13 @@
                 this.getNode('ball').ySpeed *= -1;
 			}
 			if (this.getNode('ball').x < 0) {
-				console.log('left point');
+                this.getNode('leftPlayer').score++;
+                console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
 				this.reset();
 			}
-            else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
-                console.log('right point');
+			else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
+				this.getNode('rightPlayer').score++;
+                console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
 				this.reset();
 			}
 
