@@ -15,26 +15,32 @@
 			this.paused = true;
 			this.message = "Press space to start";
 
+			app.resizeCanvas = function () {
+				this.canvasWidth = window.innerWidth - 4;
+                this.canvasHeight = window.innerHeight - 4;
+
+                this.canvas.width = this.width;
+                this.canvas.height = this.height;
+
+                let ratio = this.width / this.height;
+
+                if (this.canvasHeight > this.canvasWidth / ratio) {
+                    this.canvasHeight = this.canvasWidth / ratio;
+				}
+				else {
+                    this.canvasWidth = this.canvasHeight * ratio;
+				}
+
+                this.canvas.style.width = this.canvasWidth + 'px';
+                this.canvas.style.height = this.canvasHeight + 'px';
+			};
+
 			//resize game to fit window
 			window.addEventListener('resize', function () {
-                app.canvasWidth = window.innerWidth - 4;
-                app.canvasHeight = window.innerHeight - 4;
-
-                app.canvas.width = app.width;
-                app.canvas.height = app.height;
-
-                let ratio = app.width / app.height;
-
-                if (app.canvasHeight > app.canvasWidth / ratio) {
-                    app.canvasHeight = app.canvasWidth / ratio;
-                }
-                else {
-                    app.canvasWidth = app.canvasHeight * ratio;
-                }
-
-                app.canvas.style.width = app.canvasWidth + 'px';
-                app.canvas.style.height = app.canvasHeight + 'px';
+                app.resizeCanvas();
 			});
+
+            app.resizeCanvas();
 
 			this.nodes.push({
 				id: 'leftPlayer',
