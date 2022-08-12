@@ -48,8 +48,8 @@
                 width: app.width / 50,
                 height: app.width / 50,
 				color: 'black',
-				ySpeed: Math.floor((Math.random() * app.height / 20) - (app.height / 40)),
-                xSpeed: Math.floor((Math.random() * app.width / 20) - (app.width / 40))
+				ySpeed: Math.floor((Math.random() * app.height / 40) - (app.height / 80)),
+                xSpeed: app.width / 100
 			});
 
             document.onkeydown = function (event) {
@@ -95,7 +95,7 @@
 			}
 
             this.reset = function () {
-                
+				app.paused = true;
 			}
             this.pause = function () {
 				app.paused = true;
@@ -107,7 +107,7 @@
 				return;
             }
 
-            var playerSpeed = app.height / 20;
+            var playerSpeed = this.height / 30;
 
 			//move players
             this.getNode('leftPlayer').y += playerSpeed * (this.getNode('leftPlayer').down - this.getNode('leftPlayer').up);
@@ -117,16 +117,33 @@
 			if (this.getNode('leftPlayer').y < 0) {
 				this.getNode('leftPlayer').y = 0;
 			}
-			else if (this.getNode('leftPlayer').y + this.getNode('leftPlayer').height > app.height) {
-				this.getNode('leftPlayer').y = app.height - this.getNode('leftPlayer').height;
+			else if (this.getNode('leftPlayer').y + this.getNode('leftPlayer').height > this.height) {
+				this.getNode('leftPlayer').y = this.height - this.getNode('leftPlayer').height;
 			}
 
 			if (this.getNode('rightPlayer').y < 0) {
 				this.getNode('rightPlayer').y = 0;
 			}
-            else if (this.getNode('rightPlayer').y + this.getNode('rightPlayer').height > app.height) {
-                this.getNode('rightPlayer').y = app.height - this.getNode('rightPlayer').height;
+            else if (this.getNode('rightPlayer').y + this.getNode('rightPlayer').height > this.height) {
+                this.getNode('rightPlayer').y = this.height - this.getNode('rightPlayer').height;
 			}
+
+			//move ball
+			this.getNode('ball').y += this.getNode('ball').ySpeed;
+            this.getNode('ball').x += this.getNode('ball').xSpeed;
+
+			//ball boundaries
+            if (this.getNode('ball').y < 0 || this.getNode('ball').y + this.getNode('ball').height > this.height) {
+                this.getNode('ball').ySpeed *= -1;
+			}
+			if (this.getNode('ball').x < 0) {
+				console.log('left point');
+				this.reset();
+			}
+            else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
+                console.log('right point');
+				this.reset();
+            }
 		};
 	</script>
 </body>
