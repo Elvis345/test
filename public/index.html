@@ -12,6 +12,8 @@
 		app.onInit = function () {
 			console.log("hello");
 
+			this.paused = true;
+
             this.width = window.innerWidth - 4;
 			this.height = window.innerHeight - 4;
 			this.canvas.width = this.width;
@@ -46,17 +48,70 @@
                 width: app.width / 50,
                 height: app.width / 50,
 				color: 'black',
-				ySpeed: 0,
-				xSpeed: 0
+				ySpeed: Math.floor((Math.random() * app.height / 20) - (app.height / 40)),
+                xSpeed: Math.floor((Math.random() * app.width / 20) - (app.width / 40))
 			});
+
+            document.onkeydown = function (event) {
+                if (event.keyCode === 87) { //w
+                    app.getNode('leftPlayer').up = 1;
+                }
+                else if (event.keyCode === 83) { //s
+                    app.getNode('leftPlayer').down = 1;
+                }
+                else if (event.keyCode === 38) { //up arrow
+                    app.getNode('rightPlayer').up = 1;
+                }
+                else if (event.keyCode === 40) { //down arrow
+                    app.getNode('rightPlayer').down = 1;
+                }
+                else if (event.keyCode === 32) { //space
+					if (app.paused) {
+						app.start();
+					}
+					else {
+						app.pause();
+					}
+                }
+            }
+
+            document.onkeyup = function (event) {
+                if (event.keyCode === 87) { //w
+                    app.getNode('leftPlayer').up = 0;
+                }
+                else if (event.keyCode === 83) { //s
+                    app.getNode('leftPlayer').down = 0;
+                }
+                else if (event.keyCode === 38) { //up arrow
+                    app.getNode('rightPlayer').up = 0;
+                }
+                else if (event.keyCode === 40) { //down arrow
+                    app.getNode('rightPlayer').down = 0;
+                }
+			}
+
+            this.start = function () {
+				app.paused = false;
+			}
+
+            this.reset = function () {
+                
+			}
+            this.pause = function () {
+				app.paused = true;
+            }
 		};
 
 		app.onUpdate = function (time) {
-			var speed = app.height / 20;
+			if (this.paused) {
+				return;
+            }
+
+            var playerSpeed = app.height / 20;
 
 			//move players
-            this.getNode('leftPlayer').y += speed * (this.getNode('leftPlayer').down - this.getNode('leftPlayer').up);
-			this.getNode('rightPlayer').y += speed * (this.getNode('rightPlayer').down - this.getNode('rightPlayer').up);
+            this.getNode('leftPlayer').y += playerSpeed * (this.getNode('leftPlayer').down - this.getNode('leftPlayer').up);
+            this.getNode('rightPlayer').y += playerSpeed * (this.getNode('rightPlayer').down - this.getNode('rightPlayer').up);
 
 			//prevent players form going outside the boundaries
 			if (this.getNode('leftPlayer').y < 0) {
@@ -73,37 +128,6 @@
                 this.getNode('rightPlayer').y = app.height - this.getNode('rightPlayer').height;
 			}
 		};
-		
-		document.onkeydown = function (event) {
-			if (event.keyCode === 87) { //w
-				console.log('nooooo');
-                app.getNode('leftPlayer').up = 1;
-			}
-            else if (event.keyCode === 83) { //s
-                app.getNode('leftPlayer').down = 1;
-			}
-			else if (event.keyCode === 38) { //up arrow
-                app.getNode('rightPlayer').up = 1;
-            }
-            else if (event.keyCode === 40) { //down arrow
-                app.getNode('rightPlayer').down = 1;
-            }
-		}
-
-		document.onkeyup = function (event) {
-            if (event.keyCode === 87) { //w
-                app.getNode('leftPlayer').up = 0;
-            }
-            else if (event.keyCode === 83) { //s
-				app.getNode('leftPlayer').down = 0;
-            }
-            else if (event.keyCode === 38) { //up arrow
-                app.getNode('rightPlayer').up = 0;
-            }
-            else if (event.keyCode === 40) { //down arrow
-                app.getNode('rightPlayer').down = 0;
-            }
-        }
 	</script>
 </body>
 </html>
