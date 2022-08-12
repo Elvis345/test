@@ -13,6 +13,7 @@
 			console.log("hello");
 
 			this.paused = true;
+			this.message = "press space to start";
 
             this.width = window.innerWidth - 4;
 			this.height = window.innerHeight - 4;
@@ -108,6 +109,7 @@
 			}
             this.pause = function () {
 				app.paused = true;
+				message = "Paused";
             }
 		};
 
@@ -146,12 +148,12 @@
                 this.getNode('ball').ySpeed *= -1;
 			}
 			if (this.getNode('ball').x < 0) {
-                this.getNode('leftPlayer').score++;
+                this.getNode('rightPlayer').score++;
                 console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
 				this.reset();
 			}
 			else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
-				this.getNode('rightPlayer').score++;
+				this.getNode('leftPlayer').score++;
                 console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
 				this.reset();
 			}
