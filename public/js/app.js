@@ -54,7 +54,7 @@ var app = {
 		}
 
 		//draws text
-		this.context.font = this.height / 10 + 'px Consolas';
+		this.context.font = (this.height / 10 + 'px Consolas');
 		this.context.fillText(this.scoreMessage, this.width / 2 - this.scoreMessage.length * this.height / 35, this.height / 10);
 		if (this.paused) {
 			this.context.fillText(this.message, this.width / 2 - (this.message.length * this.height / 35), this.height / 2 - this.height / 20);

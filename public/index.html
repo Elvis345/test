@@ -15,10 +15,26 @@
 			this.paused = true;
 			this.message = "Press space to start";
 
-            this.width = window.innerWidth - 4;
-			this.height = window.innerHeight - 4;
-			this.canvas.width = this.width;
-			this.canvas.height = this.height;
+			//resize game to fit window
+			window.addEventListener('resize', function () {
+                app.canvasWidth = window.innerWidth - 4;
+                app.canvasHeight = window.innerHeight - 4;
+
+                app.canvas.width = app.width;
+                app.canvas.height = app.height;
+
+                let ratio = app.width / app.height;
+
+                if (app.canvasHeight > app.canvasWidth / ratio) {
+                    app.canvasHeight = app.canvasWidth / ratio;
+                }
+                else {
+                    app.canvasWidth = app.canvasHeight * ratio;
+                }
+
+                app.canvas.style.width = app.canvasWidth + 'px';
+                app.canvas.style.height = app.canvasHeight + 'px';
+			});
 
 			this.nodes.push({
 				id: 'leftPlayer',
@@ -76,7 +92,7 @@
 						app.pause();
 					}
                 }
-            }
+			}
 
             document.onkeyup = function (event) {
                 if (event.keyCode === 87) { //w
@@ -108,6 +124,7 @@
                 app.getNode('ball').x = app.width / 2 - app.width / 100;
                 app.getNode('ball').y = app.height / 2 - app.width / 100;
 			}
+
             this.pause = function () {
 				app.paused = true;
 				this.message = "Paused";
