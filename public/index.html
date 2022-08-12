@@ -15,6 +15,7 @@
 			this.paused = true;
 			this.message = "Press space to start";
 
+			////resize game to fit window
 			app.resizeCanvas = function () {
 				this.canvasWidth = window.innerWidth - 4;
                 this.canvasHeight = window.innerHeight - 4;
@@ -35,7 +36,7 @@
                 this.canvas.style.height = this.canvasHeight + 'px';
 			};
 
-			//resize game to fit window
+			//resize when window changes size
 			window.addEventListener('resize', function () {
                 app.resizeCanvas();
 			});
@@ -155,7 +156,6 @@
 			else if (this.getNode('leftPlayer').y + this.getNode('leftPlayer').height > this.height) {
 				this.getNode('leftPlayer').y = this.height - this.getNode('leftPlayer').height;
 			}
-
 			if (this.getNode('rightPlayer').y < 0) {
 				this.getNode('rightPlayer').y = 0;
 			}
@@ -172,15 +172,19 @@
                 this.getNode('ball').ySpeed *= -1;
 			}
 			if (this.getNode('ball').x < 0) {
-                this.getNode('rightPlayer').score++;
+				this.getNode('rightPlayer').score++;
+
 				console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
 				this.scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
+
 				this.reset();
 			}
 			else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
 				this.getNode('leftPlayer').score++;
+
 				console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
-                this.scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
+				this.scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
+
 				this.reset();
 			}
 

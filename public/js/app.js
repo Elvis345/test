@@ -43,6 +43,7 @@ var app = {
 
 			this.context.fillStyle = node.color;
 
+			//draw round ball
 			if (node.id === 'ball') {
 				this.context.beginPath();
 				this.context.arc(node.x + node.width / 2, node.y + node.height / 2, node.width / 2, 0, 2 * Math.PI);
