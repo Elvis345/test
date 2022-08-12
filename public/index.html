@@ -98,6 +98,13 @@
 
             this.reset = function () {
 				app.paused = true;
+
+                app.getNode('leftPlayer').x = app.width / 25;
+                app.getNode('leftPlayer').y = app.height / 2 - app.height / 14;
+                app.getNode('rightPlayer').x = app.width - (app.width / 25 + app.width / 50);
+				app.getNode('rightPlayer').y = app.height / 2 - app.height / 14;
+                app.getNode('ball').x = app.width / 2 - app.width / 100;
+                app.getNode('ball').y = app.height / 2 - app.width / 100;
 			}
             this.pause = function () {
 				app.paused = true;
