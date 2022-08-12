@@ -13,7 +13,7 @@
 			console.log("hello");
 
 			this.paused = true;
-			this.message = "press space to start";
+			this.message = "Press space to start";
 
             this.width = window.innerWidth - 4;
 			this.height = window.innerHeight - 4;
@@ -99,6 +99,7 @@
 
             this.reset = function () {
 				app.paused = true;
+                this.message = "Press space to start";
 
                 app.getNode('leftPlayer').x = app.width / 25;
                 app.getNode('leftPlayer').y = app.height / 2 - app.height / 14;
@@ -109,7 +110,7 @@
 			}
             this.pause = function () {
 				app.paused = true;
-				message = "Paused";
+				this.message = "Paused";
             }
 		};
 
@@ -149,12 +150,14 @@
 			}
 			if (this.getNode('ball').x < 0) {
                 this.getNode('rightPlayer').score++;
-                console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
+				console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
+				this.scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
 				this.reset();
 			}
 			else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
 				this.getNode('leftPlayer').score++;
-                console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
+				console.log('left player : ' + this.getNode('leftPlayer').score + ' right player : ' + this.getNode('rightPlayer').score);
+                this.scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
 				this.reset();
 			}
 
@@ -164,14 +167,14 @@
 				this.getNode('ball').y <= (this.getNode('leftPlayer').y + this.getNode('leftPlayer').height) &&
 				this.getNode('ball').y >= (this.getNode('leftPlayer').y - this.getNode('ball').height)) {
 
-				this.getNode('ball').xSpeed = Math.abs(this.getNode('ball').xSpeed)
+				this.getNode('ball').xSpeed = Math.abs(this.getNode('ball').xSpeed);
 			}
 			else if (this.getNode('ball').x <= (this.getNode('rightPlayer').x + this.getNode('rightPlayer').width) &&
 				this.getNode('ball').x >= (this.getNode('rightPlayer').x - this.getNode('ball').width) &&
 				this.getNode('ball').y <= (this.getNode('rightPlayer').y + this.getNode('rightPlayer').height) &&
 				this.getNode('ball').y >= (this.getNode('rightPlayer').y - this.getNode('ball').height)) {
 
-                this.getNode('ball').xSpeed = -1 * Math.abs(this.getNode('ball').xSpeed)
+				this.getNode('ball').xSpeed = -1 * Math.abs(this.getNode('ball').xSpeed);
             }
 		};
 	</script>

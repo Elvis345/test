@@ -15,6 +15,8 @@ var app = {
 	now        : 0,
 	lastUpdate: 0,
 
+	scoreMessage: "0 : 0",
+
 	init : function(){
 		this.canvas  = document.getElementById('canvas');
 		this.context = this.canvas.getContext('2d');
@@ -40,15 +42,20 @@ var app = {
 			var node = this.nodes[index];
 
 			this.context.fillStyle = node.color;
-			this.context.fillRect(node.x, node.y, node.width, node.height);
+
+			if (node.id === 'ball') {
+				this.context.beginPath();
+				this.context.arc(node.x + node.width / 2, node.y + node.height / 2, node.width / 2, 0, 2 * Math.PI);
+				this.context.fill();
+			}
+			else {
+				this.context.fillRect(node.x, node.y, node.width, node.height);
+            }
 		}
 
+		//draws text
 		this.context.font = this.height / 10 + 'px Consolas';
-
-		var scoreMessage = (this.getNode('leftPlayer').score + " : " + this.getNode('rightPlayer').score);
-
-		this.context.fillText(scoreMessage, this.width / 2 - scoreMessage.length * this.height / 35, this.height / 10);
-
+		this.context.fillText(this.scoreMessage, this.width / 2 - this.scoreMessage.length * this.height / 35, this.height / 10);
 		if (this.paused) {
 			this.context.fillText(this.message, this.width / 2 - (this.message.length * this.height / 35), this.height / 2 - this.height / 20);
         }
