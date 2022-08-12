@@ -43,13 +43,13 @@
 
 			this.nodes.push({
 				id: 'ball',
-                x: app.width / 2 - app.width / 50,
-                y: app.height / 2 - app.width / 50,
+                x: app.width / 2 - app.width / 100,
+                y: app.height / 2 - app.width / 100,
                 width: app.width / 50,
                 height: app.width / 50,
 				color: 'black',
-				ySpeed: Math.floor((Math.random() * app.height / 40) - (app.height / 80)),
-                xSpeed: app.width / 100
+				ySpeed: app.width / 100,
+				xSpeed: app.width / 100 - (Math.round(Math.random()) * app.width / 50)
 			});
 
             document.onkeydown = function (event) {
@@ -107,7 +107,7 @@
 				return;
             }
 
-            var playerSpeed = this.height / 30;
+            var playerSpeed = this.height / 50;
 
 			//move players
             this.getNode('leftPlayer').y += playerSpeed * (this.getNode('leftPlayer').down - this.getNode('leftPlayer').up);
@@ -143,6 +143,22 @@
             else if (this.getNode('ball').x + this.getNode('ball').width > this.width) {
                 console.log('right point');
 				this.reset();
+			}
+
+			//ball collision with players
+			if (this.getNode('ball').x <= (this.getNode('leftPlayer').x + this.getNode('leftPlayer').width) &&
+				this.getNode('ball').x >= (this.getNode('leftPlayer').x - this.getNode('ball').width) &&
+				this.getNode('ball').y <= (this.getNode('leftPlayer').y + this.getNode('leftPlayer').height) &&
+				this.getNode('ball').y >= (this.getNode('leftPlayer').y - this.getNode('ball').height)) {
+
+				this.getNode('ball').xSpeed = Math.abs(this.getNode('ball').xSpeed)
+			}
+			else if (this.getNode('ball').x <= (this.getNode('rightPlayer').x + this.getNode('rightPlayer').width) &&
+				this.getNode('ball').x >= (this.getNode('rightPlayer').x - this.getNode('ball').width) &&
+				this.getNode('ball').y <= (this.getNode('rightPlayer').y + this.getNode('rightPlayer').height) &&
+				this.getNode('ball').y >= (this.getNode('rightPlayer').y - this.getNode('ball').height)) {
+
+                this.getNode('ball').xSpeed = -1 * Math.abs(this.getNode('ball').xSpeed)
             }
 		};
 	</script>
